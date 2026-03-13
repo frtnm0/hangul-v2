@@ -15,7 +15,13 @@ const nativeTens: Record<number, { k: string, r: string }> = {
 export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (_, i) => {
     const num = i + 1;
     if (num === 100) {
-        return { id: `native-100`, korean: '백', romanization: 'baek', meaning: '100 (Sino)' };
+        return { 
+            id: `native-100`, 
+            korean: '백', 
+            romanization: 'baek', 
+            meaning: '100 (Sino)',
+            audioFile: `/audio/native/100.mp3`
+        };
     }
 
     const tens = Math.floor(num / 10);
@@ -38,6 +44,7 @@ export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (
         id: `native-${num}`,
         korean,
         romanization: rom,
-        meaning: num.toString()
+        meaning: num.toString(),
+        audioFile: `/audio/native/${num}.mp3`
     };
 });
