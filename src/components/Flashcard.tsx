@@ -168,12 +168,10 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
                             <p className="text-xl sm:text-2xl text-blue-400 font-medium tracking-wide">{currentItem.romanization}</p>
                         )}
 
-                        <button
-                            onClick={(e) => { e.stopPropagation(); playAudio(currentItem); }}
-                            className="absolute top-4 right-4 p-3 rounded-full bg-zinc-800/80 text-zinc-300 hover:bg-blue-500 hover:text-white transition-all"
-                        >
-                            <Volume2 className="w-6 h-6" />
-                        </button>
+                        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-zinc-800/50 text-zinc-400 text-xs font-bold tracking-widest uppercase border border-zinc-700/30">
+                            {isRandom ? 'Random' : `${currentIndex + 1} / ${items.length}`}
+                        </div>
+                        
                         <div className="absolute bottom-4 text-zinc-600 text-sm font-medium flex items-center gap-1">
                             <RotateCcw className="w-4 h-4" /> Tap to flip
                         </div>
@@ -183,6 +181,10 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
                     <div className="absolute inset-0 w-full h-full backface-hidden bg-zinc-800 border-2 border-zinc-700/50 rounded-2xl flex flex-col items-center justify-center p-8 rotate-y-180 shadow-2xl shadow-blue-900/10">
                         <p className="text-zinc-400 text-lg uppercase tracking-widest font-semibold mb-2">Meaning</p>
                         <h2 className="text-4xl sm:text-5xl font-bold text-white text-center">{currentItem.meaning}</h2>
+
+                        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-zinc-700/30 text-zinc-500 text-xs font-bold tracking-widest uppercase border border-zinc-600/20">
+                            {isRandom ? 'Random' : `${currentIndex + 1} / ${items.length}`}
+                        </div>
 
                         <div className="absolute bottom-4 text-zinc-500 text-sm font-medium flex items-center gap-1">
                             <RotateCcw className="w-4 h-4" /> Tap to flip back
@@ -202,10 +204,13 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
                 >
                     <ChevronLeft className="w-8 h-8" />
                 </button>
-
-                <div className="text-sm font-semibold text-zinc-500 tracking-widest uppercase">
-                    {isRandom ? 'Random Mode' : `${currentIndex + 1} of ${items.length}`}
-                </div>
+                <button
+                    onClick={(e) => { e.stopPropagation(); playAudio(currentItem); }}
+                    className="p-4 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 transition-all active:scale-95 border border-zinc-800/50 shadow-inner"
+                    title="Play Audio"
+                >
+                    <Volume2 className="w-6 h-6" />
+                </button>
 
                 <button
                     onClick={handleNext}
