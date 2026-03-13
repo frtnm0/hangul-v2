@@ -14,7 +14,7 @@ export function Flashcard({ items, onComplete }: FlashcardProps) {
 
     // Settings
     const [isRandom, setIsRandom] = useState(false);
-    const [showRomanization, setShowRomanization] = useState(true);
+    const [showRomanization, setShowRomanization] = useState(false);
     const [autoPlayAudio, setAutoPlayAudio] = useState(true);
 
     // Audio state
@@ -62,8 +62,14 @@ export function Flashcard({ items, onComplete }: FlashcardProps) {
         }
     }, [currentIndex, isFlipped, autoPlayAudio, currentItem, playAudio]);
 
+    const [isTransitioning, setIsTransitioning] = useState(false);
+
     const handleNext = () => {
+        setIsTransitioning(true);
         setIsFlipped(false);
+        setTimeout(() => setIsTransitioning(false), 50);
+
+
         if (isRandom) {
             let nextIdx = Math.floor(Math.random() * items.length);
             // Try not to repeat immediately
@@ -84,7 +90,10 @@ export function Flashcard({ items, onComplete }: FlashcardProps) {
     };
 
     const handlePrev = () => {
+        setIsTransitioning(true);
         setIsFlipped(false);
+        setTimeout(() => setIsTransitioning(false), 50);
+
         if (isRandom) {
             if (history.length > 1) {
                 const newHistory = [...history];
@@ -148,11 +157,11 @@ export function Flashcard({ items, onComplete }: FlashcardProps) {
                 className={`relative w-full aspect-[4/3] max-h-[400px] cursor-pointer perspective-1000 group ${isFlipped ? 'flipped' : ''}`}
                 onClick={() => setIsFlipped(!isFlipped)}
             >
-                <div className={`w-full h-full transition-transform duration-500 transform-style-3d shadow-xl rounded-2xl ${isFlipped ? 'rotate-y-180' : ''}`}>
+                <div className={`w-full h-full transform-style-3d shadow-xl rounded-2xl ${isTransitioning ? 'duration-0' : 'transition-transform duration-500'} ${isFlipped ? 'rotate-y-180' : ''}`}>
 
                     {/* Front */}
                     <div className="absolute inset-0 w-full h-full backface-hidden bg-zinc-900 border-2 border-zinc-800 rounded-2xl flex flex-col items-center justify-center p-8 group-hover:border-blue-500/50 transition-colors">
-                        <h2 className="text-7xl sm:text-8xl md:text-9xl font-bold text-zinc-100 mb-6 drop-shadow-md">{currentItem.korean}</h2>
+                        <h2 className="text-7xl sm:text-8xl md:text-9xl font-bold text-[#ff8c00] mb-6 drop-shadow-md">{currentItem.korean}</h2>
                         {showRomanization && (
                             <p className="text-xl sm:text-2xl text-blue-400 font-medium tracking-wide">{currentItem.romanization}</p>
                         )}
