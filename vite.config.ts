@@ -9,6 +9,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'pwa-192x192.png', 'pwa-512x512.png', 'audio/**/*.mp3'],
       manifest: {
         name: 'Hangul V2 Learning App',
         short_name: 'Hangul V2',
@@ -27,6 +28,10 @@ export default defineConfig({
             type: 'image/png'
           }
         ]
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,mp3}'],
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10MB limit to handle many mp3 files
       }
     })
   ],
