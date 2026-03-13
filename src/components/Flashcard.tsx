@@ -6,15 +6,18 @@ import { Shuffle, ArrowRightLeft, Volume2, Eye, EyeOff, ChevronLeft, ChevronRigh
 interface FlashcardProps {
     items: FlashcardItem[];
     onComplete?: () => void;
+    initialRandom?: boolean;
+    initialShowRomanization?: boolean;
 }
 
-export function Flashcard({ items, onComplete }: FlashcardProps) {
+export function Flashcard({ items, onComplete, initialRandom = false, initialShowRomanization = true }: FlashcardProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
     // Settings
-    const [isRandom, setIsRandom] = useState(false);
-    const [showRomanization, setShowRomanization] = useState(false);
+    const [isRandom, setIsRandom] = useState(initialRandom);
+    const [showRomanization, setShowRomanization] = useState(initialShowRomanization);
     const [autoPlayAudio, setAutoPlayAudio] = useState(true);
 
     // Audio state
@@ -62,7 +65,6 @@ export function Flashcard({ items, onComplete }: FlashcardProps) {
         }
     }, [currentIndex, isFlipped, autoPlayAudio, currentItem, playAudio]);
 
-    const [isTransitioning, setIsTransitioning] = useState(false);
 
     const handleNext = () => {
         setIsTransitioning(true);
@@ -161,7 +163,7 @@ export function Flashcard({ items, onComplete }: FlashcardProps) {
 
                     {/* Front */}
                     <div className="absolute inset-0 w-full h-full backface-hidden bg-zinc-900 border-2 border-zinc-800 rounded-2xl flex flex-col items-center justify-center p-8 group-hover:border-blue-500/50 transition-colors">
-                        <h2 className="text-7xl sm:text-8xl md:text-9xl font-bold font-korean text-[#ff8c00] mb-6 drop-shadow-md">{currentItem.korean}</h2>
+                        <h2 className="text-7xl sm:text-8xl md:text-8xl font-bold font-korean text-[#ff8c00] mb-6 drop-shadow-md">{currentItem.korean}</h2>
                         {showRomanization && (
                             <p className="text-xl sm:text-2xl text-blue-400 font-medium tracking-wide">{currentItem.romanization}</p>
                         )}

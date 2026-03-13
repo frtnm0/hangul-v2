@@ -7,9 +7,17 @@ interface FlashcardViewProps {
     title: string;
     items: FlashcardItem[];
     onBack: () => void;
+    initialRandom?: boolean;
+    initialShowRomanization?: boolean;
 }
 
-export function FlashcardView({ title, items, onBack }: FlashcardViewProps) {
+export function FlashcardView({ 
+    title, 
+    items, 
+    onBack, 
+    initialRandom = false, 
+    initialShowRomanization = true 
+}: FlashcardViewProps) {
     const [isCompleted, setIsCompleted] = useState(false);
 
     return (
@@ -21,6 +29,8 @@ export function FlashcardView({ title, items, onBack }: FlashcardViewProps) {
                     <div className="flex-1 flex flex-col justify-center max-w-4xl mx-auto w-full">
                         <Flashcard
                             items={items}
+                            initialRandom={initialRandom}
+                            initialShowRomanization={initialShowRomanization}
                             onComplete={() => setIsCompleted(true)}
                         />
                     </div>

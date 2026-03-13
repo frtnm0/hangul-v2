@@ -15,10 +15,10 @@ function HangulSection({ title, items }: HangulSectionProps) {
                         key={item.id}
                         className="flex flex-col items-center justify-center p-3 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-blue-500/50 transition-colors"
                     >
-                        <span className="text-3xl font-bold text-zinc-100 mb-1">{item.character}</span>
-                        <span className="text-sm font-medium text-blue-400">{item.romanization}</span>
+                        <span className="text-3xl font-bold font-korean text-[#ff8c00] mb-1">{item.character}</span>
+                        <span className="text-sm font-medium text-zinc-100">{item.romanization}</span>
                         {item.description && (
-                            <span className="text-[10px] text-zinc-500 text-center mt-1 leading-tight hidden sm:block">
+                            <span className="text-[10px] text-zinc-100 text-center mt-1 leading-tight hidden sm:block">
                                 {item.description}
                             </span>
                         )}
