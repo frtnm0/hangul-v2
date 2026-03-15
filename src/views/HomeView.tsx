@@ -11,7 +11,7 @@ interface HomeViewProps {
 
 export function HomeView({ onSelectDataset, onSelectMixed, onSelectHangul, onSelectLearningPath }: HomeViewProps) {
     return (
-        <div className="flex-1 flex flex-col items-center">
+        <div className="flex-1 flex flex-col items-center min-h-0">
             <Header title="Hangul V2" />
             <div className="w-full flex-1 pt-6 overflow-y-auto pb-safe">
                 <div className="w-full max-w-4xl mx-auto px-4 mb-8">

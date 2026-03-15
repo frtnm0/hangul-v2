@@ -21,7 +21,7 @@ export function FlashcardView({
     const [isCompleted, setIsCompleted] = useState(false);
 
     return (
-        <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <div className="flex-1 flex flex-col h-full overflow-hidden relative">
             <Header title={title} onBack={onBack} />
 
             <div className="flex-1 overflow-y-auto px-4 py-8 pb-32 flex flex-col">

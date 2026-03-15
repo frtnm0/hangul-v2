@@ -19,7 +19,7 @@ function App() {
   const goMixed = (ids: string[], limit: number) => setViewState({ type: 'mixed', datasetIds: ids, limit });
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-blue-500/30">
+    <div className="h-full bg-zinc-950 text-zinc-50 font-sans selection:bg-blue-500/30 flex flex-col overflow-hidden">
       {viewState.type === 'home' && (
         <HomeView
           onSelectHangul={goHangul}

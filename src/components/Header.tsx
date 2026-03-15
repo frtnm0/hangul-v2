@@ -7,7 +7,7 @@ interface HeaderProps {
 
 export function Header({ title, onBack }: HeaderProps) {
     return (
-        <header className="p-4 border-b border-zinc-900 bg-zinc-950/80 backdrop-blur top-0 sticky z-10 w-full">
+        <header className="flex-none p-4 border-b border-zinc-900 bg-zinc-950/80 backdrop-blur top-0 sticky z-10 w-full">
             <div className="max-w-4xl mx-auto flex items-center gap-3">
                 {onBack && (
                     <button

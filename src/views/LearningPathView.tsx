@@ -43,7 +43,7 @@ function PathStep({ number, title, description, items, example, icon }: StepProp
                     <div className="bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 flex items-center justify-between">
                         <div>
                             <p className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest mb-1">Example</p>
-                            <p className="text-2xl font-bold font-korean text-[#ff8c00]">{example.korean}</p>
+                            <p className={`${example.korean.length > 4 ? 'text-xl' : 'text-2xl'} font-bold font-korean text-[#ff8c00]`}>{example.korean}</p>
                         </div>
                         <p className="text-zinc-400 italic text-sm">{example.english}</p>
                     </div>
@@ -117,7 +117,7 @@ export function LearningPathView({ onBack }: LearningPathViewProps) {
     ];
 
     return (
-        <div className="flex-1 flex flex-col h-screen">
+        <div className="flex-1 flex flex-col h-full min-h-0">
             <Header title="Beginner Learning Path" onBack={onBack} />
             <div className="flex-1 overflow-y-auto px-4 py-8 pb-32">
                 <div className="max-w-3xl mx-auto">

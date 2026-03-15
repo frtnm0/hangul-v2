@@ -163,7 +163,7 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
 
                     {/* Front */}
                     <div className="col-start-1 row-start-1 w-full backface-hidden bg-zinc-900 border-2 border-zinc-800 rounded-2xl flex flex-col items-center justify-center p-8 sm:p-12 group-hover:border-blue-500/50 transition-colors min-h-[300px]">
-                        <h2 className="text-7xl sm:text-8xl md:text-8xl font-bold font-korean text-[#ff8c00] mb-6 drop-shadow-md">{currentItem.korean}</h2>
+                        <h2 className={`${currentItem.korean.length > 4 ? 'text-5xl sm:text-6xl md:text-7xl' : 'text-7xl sm:text-8xl md:text-8xl'} font-bold font-korean text-[#ff8c00] mb-6 drop-shadow-md`}>{currentItem.korean}</h2>
                         {showRomanization && (
                             <p className="text-xl sm:text-2xl text-blue-400 font-medium tracking-wide">{currentItem.romanization}</p>
                         )}
@@ -181,7 +181,7 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
                     <div className="col-start-1 row-start-1 w-full backface-hidden bg-zinc-800 border-2 border-zinc-700/50 rounded-2xl flex flex-col items-center justify-between p-6 sm:p-10 rotate-y-180 shadow-2xl shadow-blue-900/10 min-h-[300px]">
                         <div className="w-full flex flex-col items-center flex-1 justify-center space-y-2 sm:space-y-4">
                             <div className="text-center">
-                                <h2 className="text-2xl sm:text-4xl font-bold font-korean text-[#ff8c00] mb-0.5 drop-shadow-sm">{currentItem.korean}</h2>
+                                <h2 className={`${currentItem.korean.length > 4 ? 'text-xl sm:text-3xl' : 'text-2xl sm:text-4xl'} font-bold font-korean text-[#ff8c00] mb-0.5 drop-shadow-sm`}>{currentItem.korean}</h2>
                                 <p className="text-sm sm:text-lg text-blue-400/80 font-medium tracking-wide">{currentItem.romanization}</p>
                             </div>
 
