@@ -3,8 +3,8 @@ import { Header } from '../components/Header';
 import { MainMenu } from '../components/MainMenu';
 
 interface HomeViewProps {
-    onSelectDataset: (id: string) => void;
-    onSelectMixed: (ids: string[]) => void;
+    onSelectDataset: (id: string, limit: number) => void;
+    onSelectMixed: (ids: string[], limit: number) => void;
     onSelectHangul: () => void;
     onSelectLearningPath: () => void;
 }

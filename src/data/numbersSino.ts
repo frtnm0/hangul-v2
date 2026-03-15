@@ -16,7 +16,14 @@ export const sinoNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (_,
     let rom = '';
 
     if (num === 100) {
-        return { id: `sino-100`, korean: '백', romanization: 'baek', meaning: '100' };
+        return { 
+            id: `sino-100`, 
+            korean: '백', 
+            romanization: 'baek', 
+            meaning: '100',
+            example: '백 원이에요',
+            exampleMeaning: 'It is 100 won'
+        };
     }
 
     if (num <= 10) {
@@ -40,6 +47,8 @@ export const sinoNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (_,
         korean,
         romanization: rom,
         meaning: num.toString(),
+        example: `${korean} 원이에요`,
+        exampleMeaning: `It is ${num} won`,
         audioFile: `/audio/sino/${num}.mp3`
     };
 });

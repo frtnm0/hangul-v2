@@ -1,7 +1,7 @@
 import type { Dataset } from './types';
 import { sinoNumbersItems } from './numbersSino';
 import { nativeNumbersItems } from './numbersNative';
-import { commonColors, commonFruits, commonFoods, basicVocab } from './vocabulary';
+import { commonColors, commonFruits, commonFoods, basicVocab, actionWords, placeWords } from './vocabulary';
 
 export * from './types';
 export * from './hangul';
@@ -30,6 +30,18 @@ export const datasets: Dataset[] = [
         title: 'Fruits & Foods',
         description: 'Common fruits, foods, and drinks',
         items: [...commonFruits, ...commonFoods],
+    },
+    {
+        id: 'action-words',
+        title: 'Action Words',
+        description: 'Common verbs and active expressions',
+        items: actionWords,
+    },
+    {
+        id: 'places',
+        title: 'Places & Locations',
+        description: 'Common buildings, destinations, and geography',
+        items: placeWords,
     },
     {
         id: 'basic-vocab',

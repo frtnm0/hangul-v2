@@ -20,6 +20,8 @@ export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (
             korean: '백', 
             romanization: 'baek', 
             meaning: '100 (Sino)',
+            example: '백 개 있어요',
+            exampleMeaning: 'There are 100 items',
             audioFile: `/audio/native/100.mp3`
         };
     }
@@ -45,6 +47,8 @@ export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (
         korean,
         romanization: rom,
         meaning: num.toString(),
+        example: `${korean} 개 있어요`,
+        exampleMeaning: `There are ${num} items`,
         audioFile: `/audio/native/${num}.mp3`
     };
 });

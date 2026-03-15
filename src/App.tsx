@@ -6,8 +6,8 @@ export type ViewState =
   | { type: 'home' }
   | { type: 'hangul' }
   | { type: 'learning-path' }
-  | { type: 'flashcard', datasetId: string }
-  | { type: 'mixed', datasetIds: string[] };
+  | { type: 'flashcard', datasetId: string, limit: number }
+  | { type: 'mixed', datasetIds: string[], limit: number };
 
 function App() {
   const [viewState, setViewState] = useState<ViewState>({ type: 'home' });
@@ -15,8 +15,8 @@ function App() {
   const goHome = () => setViewState({ type: 'home' });
   const goHangul = () => setViewState({ type: 'hangul' });
   const goLearningPath = () => setViewState({ type: 'learning-path' });
-  const goFlashcard = (id: string) => setViewState({ type: 'flashcard', datasetId: id });
-  const goMixed = (ids: string[]) => setViewState({ type: 'mixed', datasetIds: ids });
+  const goFlashcard = (id: string, limit: number) => setViewState({ type: 'flashcard', datasetId: id, limit });
+  const goMixed = (ids: string[], limit: number) => setViewState({ type: 'mixed', datasetIds: ids, limit });
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-blue-500/30">
@@ -55,11 +55,17 @@ function App() {
           );
           title = dataset.title;
           items = dataset.items;
+          if (viewState.limit > 0) {
+            items = items.slice(0, viewState.limit);
+          }
         } else {
           title = 'Mixed Session';
           items = datasets
             .filter(d => viewState.datasetIds.includes(d.id))
-            .flatMap(d => d.items);
+            .flatMap(d => {
+              const res = d.items;
+              return viewState.limit > 0 ? res.slice(0, viewState.limit) : res;
+            });
           initialRandom = true;
           initialShowRomanization = false;
         }

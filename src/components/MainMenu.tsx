@@ -1,17 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Dataset } from '../data';
 import { LayoutGrid, Library, BookOpen, Layers, Check, Compass } from 'lucide-react';
 
 interface MainMenuProps {
     datasets: Dataset[];
-    onSelectDataset: (datasetId: string) => void;
-    onSelectMixed: (datasetIds: string[]) => void;
+    onSelectDataset: (datasetId: string, limit: number) => void;
+    onSelectMixed: (datasetIds: string[], limit: number) => void;
     onSelectHangul: () => void;
     onSelectLearningPath: () => void;
 }
 
 export function MainMenu({ datasets, onSelectDataset, onSelectMixed, onSelectHangul, onSelectLearningPath }: MainMenuProps) {
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [itemLimit, setItemLimit] = useState<number>(() => {
+        const saved = localStorage.getItem('hangul_item_limit');
+        return saved ? parseInt(saved, 10) : 10;
+    });
+
+    useEffect(() => {
+        localStorage.setItem('hangul_item_limit', itemLimit.toString());
+    }, [itemLimit]);
+
+    const limits = [10, 20, 30, 40, 50, 0];
 
     const toggleDataset = (id: string) => {
         setSelectedIds(prev =>
@@ -23,6 +33,35 @@ export function MainMenu({ datasets, onSelectDataset, onSelectMixed, onSelectHan
 
     return (
         <div className="w-full max-w-4xl mx-auto p-4 md:p-6 space-y-8 animate-in fade-in duration-500">
+
+            <section className="space-y-4">
+                <h2 className="text-lg font-semibold text-zinc-300 flex items-center gap-2">
+                    <Compass className="w-5 h-5 text-zinc-500" />
+                    Study Settings
+                </h2>
+                <div className="bg-zinc-900/30 p-4 rounded-2xl border border-zinc-800/50 space-y-3">
+                    <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-zinc-400">Card Limit per deck:</span>
+                        <span className="text-xs font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                            {itemLimit === 0 ? 'Show All' : `First ${itemLimit} Cards`}
+                        </span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {limits.map(l => (
+                            <button
+                                key={l}
+                                onClick={() => setItemLimit(l)}
+                                className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all ${itemLimit === l
+                                    ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/20'
+                                    : 'bg-zinc-950 border-zinc-800 text-zinc-500 hover:border-zinc-700 hover:text-zinc-300'
+                                    }`}
+                            >
+                                {l === 0 ? 'All' : l}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             <section className="space-y-4">
                 <h2 className="text-lg font-semibold text-zinc-300 flex items-center gap-2">
@@ -65,13 +104,14 @@ export function MainMenu({ datasets, onSelectDataset, onSelectMixed, onSelectHan
                     </h2>
                     {selectedIds.length > 0 && (
                         <button
-                            onClick={() => onSelectMixed(selectedIds)}
+                            onClick={() => onSelectMixed(selectedIds, itemLimit)}
                             className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-blue-500/20 active:scale-95 animate-in slide-in-from-right-4"
                         >
                             Start Mix Mode ({selectedIds.length})
                         </button>
                     )}
                 </div>
+
                 <div className="flex flex-wrap gap-2">
                     {datasets.map(ds => (
                         <button
@@ -101,7 +141,7 @@ export function MainMenu({ datasets, onSelectDataset, onSelectMixed, onSelectHan
                     {datasets.map((ds) => (
                         <div
                             key={ds.id}
-                            onClick={() => onSelectDataset(ds.id)}
+                            onClick={() => onSelectDataset(ds.id, itemLimit)}
                             className="group relative overflow-hidden bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-5 rounded-2xl cursor-pointer transition-all hover:shadow-lg hover:shadow-blue-500/5 select-none flex flex-col h-full active:scale-[0.98]"
                         >
                             <div className="flex-1">

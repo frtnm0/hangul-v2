@@ -3,6 +3,8 @@ export interface FlashcardItem {
     korean: string;
     romanization: string;
     meaning: string;
+    example: string;
+    exampleMeaning: string;
     audioFile?: string;
 }
 
