@@ -41,7 +41,7 @@ function App() {
         let title = '';
         let items: any[] = [];
         let initialRandom = false;
-        let initialShowRomanization = true;
+        let initialShowRomanization = false;
 
         if (viewState.type === 'flashcard') {
           const dataset = datasets.find(d => d.id === viewState.datasetId);

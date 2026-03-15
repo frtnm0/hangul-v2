@@ -16,7 +16,7 @@ export function FlashcardView({
     items, 
     onBack, 
     initialRandom = false, 
-    initialShowRomanization = true 
+    initialShowRomanization = false 
 }: FlashcardViewProps) {
     const [isCompleted, setIsCompleted] = useState(false);
 

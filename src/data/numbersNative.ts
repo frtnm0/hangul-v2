@@ -22,6 +22,7 @@ export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (
             meaning: '100 (Sino)',
             example: '백 개 있어요',
             exampleMeaning: 'There are 100 items',
+            wordType: 'Sino-Korean', // 100 uses Sino system in many contexts but here we'll label base on the deck
             audioFile: `/audio/native/100.mp3`
         };
     }
@@ -31,6 +32,9 @@ export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (
 
     let korean = '';
     let rom = '';
+
+    let breakdown = '';
+    let breakdownMeaning = '';
 
     if (tens > 0) {
         korean += nativeTens[tens].k;
@@ -42,6 +46,11 @@ export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (
         rom += (tens > 0 ? '-' : '') + nativeUnits[units].r;
     }
 
+    if (tens > 0 && units > 0) {
+        breakdown = `${nativeTens[tens].k} + ${nativeUnits[units].k}`;
+        breakdownMeaning = `${tens * 10} + ${units}`;
+    }
+
     return {
         id: `native-${num}`,
         korean,
@@ -49,6 +58,9 @@ export const nativeNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (
         meaning: num.toString(),
         example: `${korean} 개 있어요`,
         exampleMeaning: `There are ${num} items`,
+        breakdown: breakdown || undefined,
+        breakdownMeaning: breakdownMeaning || undefined,
+        wordType: 'Native Korean',
         audioFile: `/audio/native/${num}.mp3`
     };
 });

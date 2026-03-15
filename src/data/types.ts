@@ -5,6 +5,9 @@ export interface FlashcardItem {
     meaning: string;
     example: string;
     exampleMeaning: string;
+    breakdown?: string;
+    breakdownMeaning?: string;
+    wordType?: string;
     audioFile?: string;
 }
 

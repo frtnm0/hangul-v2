@@ -10,7 +10,7 @@ interface FlashcardProps {
     initialShowRomanization?: boolean;
 }
 
-export function Flashcard({ items, onComplete, initialRandom = false, initialShowRomanization = true }: FlashcardProps) {
+export function Flashcard({ items, onComplete, initialRandom = false, initialShowRomanization = false }: FlashcardProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
@@ -156,20 +156,20 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
 
             {/* Main Card */}
             <div
-                className={`relative w-full aspect-[4/3] max-h-[400px] cursor-pointer perspective-1000 group ${isFlipped ? 'flipped' : ''}`}
+                className={`relative w-full cursor-pointer perspective-1000 group ${isFlipped ? 'flipped' : ''}`}
                 onClick={() => setIsFlipped(!isFlipped)}
             >
-                <div className={`w-full h-full transform-style-3d shadow-xl rounded-2xl ${isTransitioning ? 'duration-0' : 'transition-transform duration-500'} ${isFlipped ? 'rotate-y-180' : ''}`}>
+                <div className={`w-full grid transform-style-3d shadow-xl rounded-2xl ${isTransitioning ? 'duration-0' : 'transition-[transform,height] duration-500'} ${isFlipped ? 'rotate-y-180' : ''}`}>
 
                     {/* Front */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden bg-zinc-900 border-2 border-zinc-800 rounded-2xl flex flex-col items-center justify-center p-8 group-hover:border-blue-500/50 transition-colors">
+                    <div className="col-start-1 row-start-1 w-full backface-hidden bg-zinc-900 border-2 border-zinc-800 rounded-2xl flex flex-col items-center justify-center p-8 sm:p-12 group-hover:border-blue-500/50 transition-colors min-h-[300px]">
                         <h2 className="text-7xl sm:text-8xl md:text-8xl font-bold font-korean text-[#ff8c00] mb-6 drop-shadow-md">{currentItem.korean}</h2>
                         {showRomanization && (
                             <p className="text-xl sm:text-2xl text-blue-400 font-medium tracking-wide">{currentItem.romanization}</p>
                         )}
 
-                        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-zinc-800/50 text-zinc-400 text-xs font-bold tracking-widest uppercase border border-zinc-700/30">
-                            {isRandom ? 'Random' : `${currentIndex + 1} / ${items.length}`}
+                        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase border border-blue-500/20 shadow-sm shadow-blue-500/5">
+                            {currentItem.wordType || 'Vocabulary'}
                         </div>
 
                         <div className="absolute bottom-4 text-zinc-600 text-sm font-medium flex items-center gap-1">
@@ -178,24 +178,43 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
                     </div>
 
                     {/* Back */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden bg-zinc-800 border-2 border-zinc-700/50 rounded-2xl flex flex-col items-center justify-center p-6 sm:p-8 rotate-y-180 shadow-2xl shadow-blue-900/10">
-                        <h2 className="text-3xl sm:text-5xl font-bold font-korean text-[#ff8c00] mb-2 sm:mb-4 drop-shadow-sm">{currentItem.korean}</h2>
-                        
-                        <p className="text-zinc-400 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold mb-1 sm:mb-2 opacity-80">Meaning</p>
-                        <h2 className="text-3xl sm:text-5xl font-bold text-white text-center mb-4 sm:mb-8">{currentItem.meaning}</h2>
+                    <div className="col-start-1 row-start-1 w-full backface-hidden bg-zinc-800 border-2 border-zinc-700/50 rounded-2xl flex flex-col items-center justify-between p-6 sm:p-10 rotate-y-180 shadow-2xl shadow-blue-900/10 min-h-[300px]">
+                        <div className="w-full flex flex-col items-center flex-1 justify-center space-y-2 sm:space-y-4">
+                            <div className="text-center">
+                                <h2 className="text-2xl sm:text-4xl font-bold font-korean text-[#ff8c00] mb-0.5 drop-shadow-sm">{currentItem.korean}</h2>
+                                <p className="text-sm sm:text-lg text-blue-400/80 font-medium tracking-wide">{currentItem.romanization}</p>
+                            </div>
 
-                        {/* Example Section */}
-                        <div className="mt-2 sm:mt-4 pt-4 sm:pt-6 border-t border-zinc-700/50 w-full text-center">
-                            <p className="text-blue-400 font-medium text-base sm:text-lg mb-1">{currentItem.example}</p>
-                            <p className="text-zinc-500 text-xs sm:text-sm italic">{currentItem.exampleMeaning}</p>
+                            <div className="flex flex-col items-center">
+                                <p className="text-zinc-500 text-[9px] sm:text-xs uppercase tracking-[0.2em] font-bold mb-0.5 opacity-70">Meaning</p>
+                                <h2 className="text-2xl sm:text-4xl font-bold text-white text-center leading-tight">{currentItem.meaning}</h2>
+                            </div>
+
+                            {/* Breakdown Roots Section */}
+                            {currentItem.breakdown && (
+                                <div className="bg-blue-500/5 border border-blue-500/10 rounded-xl px-4 py-2 sm:py-3 w-full max-w-[280px] sm:max-w-xs text-center">
+                                    <p className="text-zinc-500 text-[8px] sm:text-[10px] uppercase tracking-[0.2em] font-black mb-1 opacity-60">Roots</p>
+                                    <p className="text-blue-300/90 font-bold text-sm sm:text-base mb-0.5">{currentItem.breakdown}</p>
+                                    <p className="text-zinc-400 text-[10px] sm:text-xs italic">{currentItem.breakdownMeaning}</p>
+                                </div>
+                            )}
+
+                            {/* Example Section */}
+                            <div className="pt-2 sm:pt-4 border-t border-zinc-700/50 w-full text-center max-w-sm">
+                                <p className="text-blue-400 font-medium text-sm sm:text-base mb-0.5 leading-snug">{currentItem.example}</p>
+                                <p className="text-zinc-500 text-[11px] sm:text-sm italic leading-tight">{currentItem.exampleMeaning}</p>
+                            </div>
                         </div>
 
-                        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-zinc-700/30 text-zinc-500 text-xs font-bold tracking-widest uppercase border border-zinc-600/20">
-                            {isRandom ? 'Random' : `${currentIndex + 1} / ${items.length}`}
+                        <div className="mt-4 flex flex-col items-center gap-2">
+                            <div className="text-zinc-500 text-[10px] sm:text-sm font-medium flex items-center gap-1 opacity-80">
+                                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Tap to flip back
+                            </div>
                         </div>
 
-                        <div className="absolute bottom-3 sm:bottom-4 text-zinc-500 text-xs sm:text-sm font-medium flex items-center gap-1">
-                            <RotateCcw className="w-4 h-4" /> Tap to flip back
+                        {/* Pagination indicator - moved to top for space */}
+                        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-zinc-700/30 text-zinc-500 text-[9px] sm:text-[11px] font-bold tracking-widest border border-zinc-600/20">
+                            {isRandom ? 'RANDOM' : `${currentIndex + 1}/${items.length}`}
                         </div>
                     </div>
 

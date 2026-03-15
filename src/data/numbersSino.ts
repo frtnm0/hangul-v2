@@ -15,6 +15,9 @@ export const sinoNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (_,
     let korean = '';
     let rom = '';
 
+    let breakdown = '';
+    let breakdownMeaning = '';
+
     if (num === 100) {
         return { 
             id: `sino-100`, 
@@ -22,13 +25,17 @@ export const sinoNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (_,
             romanization: 'baek', 
             meaning: '100',
             example: '백 원이에요',
-            exampleMeaning: 'It is 100 won'
+            exampleMeaning: 'It is 100 won',
+            breakdown: '백',
+            breakdownMeaning: '100',
+            wordType: 'Sino-Korean'
         };
     }
 
     if (num <= 10) {
         korean = sinoBases[num];
         rom = sinoRomBases[num];
+        // No breakdown needed for single units/10
     } else {
         const tens = Math.floor(num / 10);
         const units = num % 10;
@@ -36,9 +43,13 @@ export const sinoNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (_,
         if (tens === 1) {
             korean = '십' + (units > 0 ? sinoBases[units] : '');
             rom = 'sip' + (units > 0 ? '-' + sinoRomBases[units] : '');
+            breakdown = '십' + (units > 0 ? ' + ' + sinoBases[units] : '');
+            breakdownMeaning = '10' + (units > 0 ? ' + ' + units : '');
         } else {
             korean = sinoBases[tens] + '십' + (units > 0 ? sinoBases[units] : '');
             rom = sinoRomBases[tens] + '-sip' + (units > 0 ? '-' + sinoRomBases[units] : '');
+            breakdown = sinoBases[tens] + ' + 십' + (units > 0 ? ' + ' + sinoBases[units] : '');
+            breakdownMeaning = tens + ' + 10' + (units > 0 ? ' + ' + units : '');
         }
     }
 
@@ -49,6 +60,9 @@ export const sinoNumbersItems: FlashcardItem[] = Array.from({ length: 100 }, (_,
         meaning: num.toString(),
         example: `${korean} 원이에요`,
         exampleMeaning: `It is ${num} won`,
+        breakdown: breakdown || undefined,
+        breakdownMeaning: breakdownMeaning || undefined,
+        wordType: 'Sino-Korean',
         audioFile: `/audio/sino/${num}.mp3`
     };
 });
