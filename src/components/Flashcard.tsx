@@ -178,23 +178,23 @@ export function Flashcard({ items, onComplete, initialRandom = false, initialSho
                     </div>
 
                     {/* Back */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden bg-zinc-800 border-2 border-zinc-700/50 rounded-2xl flex flex-col items-center justify-center p-8 rotate-y-180 shadow-2xl shadow-blue-900/10">
-                        <h2 className="text-4xl sm:text-5xl font-bold font-korean text-[#ff8c00] mb-4 drop-shadow-sm">{currentItem.korean}</h2>
-
-                        <p className="text-zinc-400 text-xs uppercase tracking-[0.2em] font-bold mb-2 opacity-80">Meaning</p>
-                        <h2 className="text-4xl sm:text-5xl font-bold text-white text-center mb-8">{currentItem.meaning}</h2>
+                    <div className="absolute inset-0 w-full h-full backface-hidden bg-zinc-800 border-2 border-zinc-700/50 rounded-2xl flex flex-col items-center justify-center p-6 sm:p-8 rotate-y-180 shadow-2xl shadow-blue-900/10">
+                        <h2 className="text-3xl sm:text-5xl font-bold font-korean text-[#ff8c00] mb-2 sm:mb-4 drop-shadow-sm">{currentItem.korean}</h2>
+                        
+                        <p className="text-zinc-400 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold mb-1 sm:mb-2 opacity-80">Meaning</p>
+                        <h2 className="text-3xl sm:text-5xl font-bold text-white text-center mb-4 sm:mb-8">{currentItem.meaning}</h2>
 
                         {/* Example Section */}
-                        <div className="mt-4 pt-6 border-t border-zinc-700/50 w-full text-center">
-                            <p className="text-blue-400 font-medium text-lg mb-1">{currentItem.example}</p>
-                            <p className="text-zinc-500 text-sm italic">{currentItem.exampleMeaning}</p>
+                        <div className="mt-2 sm:mt-4 pt-4 sm:pt-6 border-t border-zinc-700/50 w-full text-center">
+                            <p className="text-blue-400 font-medium text-base sm:text-lg mb-1">{currentItem.example}</p>
+                            <p className="text-zinc-500 text-xs sm:text-sm italic">{currentItem.exampleMeaning}</p>
                         </div>
 
                         <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-zinc-700/30 text-zinc-500 text-xs font-bold tracking-widest uppercase border border-zinc-600/20">
                             {isRandom ? 'Random' : `${currentIndex + 1} / ${items.length}`}
                         </div>
 
-                        <div className="absolute bottom-4 text-zinc-500 text-sm font-medium flex items-center gap-1">
+                        <div className="absolute bottom-3 sm:bottom-4 text-zinc-500 text-xs sm:text-sm font-medium flex items-center gap-1">
                             <RotateCcw className="w-4 h-4" /> Tap to flip back
                         </div>
                     </div>
